@@ -217,22 +217,16 @@ Sampling.
 \end{comment}
  
 \section{Introduction}
+Search based software engineering involves utilizing the rich literature of search based optimization to the software engineering problems. Using SBSE, a software engineering task can be solved by finding solutions along with a fitness function associated with that problem. 
+The automatic evaluation of the solutions open up whole range of possibilities with Evolutionary algorithms (which we would talk in great depth later in the paper). In the last few years, EA has been used widely solve problems in software engineering like requirement selection~\cite{durillo2011study}  or resource allocation in project scheduling~\cite{luna2014software} to name a few. While using EA is very useful and easy, it comes with a caveat. 
+We mentioned before the EA uses a fitness function and a normal run of EAs takes about tens of thousands of evaluations. If the cost/time involved in evaluating the fitness function is high, it would hinder the acceptance of EAs in the real-world. 
+In this work (and in future), we would be working predominantly on exploring way to used the search techniques to solve the hard problems with a \textquotesingle budget \textquotesingle in mind. The problem we choose to explore is the problem of choosing the optimal configurations for a software. In the following sections, we try to answer questions on why we make the following choices in our work and why we think it is important. 
+
+\subsection*{Why is the problem of choosing correct configurations so important?}\label{section:importance}
 In cloud computing, applications are provided on-demand
 as a self-service \cite{bennett2000service}. Commonly, a software as a service
 (SaaS) application is hosted by a provider in the cloud,
-rented to multiple customers (called tenants) and  by the tenants\textquotesingle  users over the internet [7]. In addition, application
-resources are shared among tenants\cite{chong2007architecture}.
-
- \begin{figure}[tbh]
-\centering
-\includegraphics[width=0.9\columnwidth]{Figures/knobs_paper_fig1}
-\caption{The increasing number of configuration parameters with
-software evolution. Storage-A is a commercial storage system from a
-major storage company in the U.S. (from \cite{xu2015hey})}.
-\label{fig:knobs_figure}
-\end{figure}
-
- In the provisioning
+rented to multiple customers (called tenants) and  by the tenants\textquotesingle  users over the internet. In the provisioning
 of a SaaS application, various stakeholders with different
 objectives are involved, i.e., providers of all cloud stack layers
 as well as tenants and their users [18, 26]. Thus, providing
@@ -243,22 +237,17 @@ management to support for multiple stakeholders. Methods
 from software product line (SPL) engineering are convenient
 to handle the commonality and variability of SaaS applications
 as stated in the literature \cite{reiser2007multi, ruehl2011applying, schroeter2012towards}. 
-%Furthermore, providing views for different stakeholders can be achieved by applying staged configuration. 
 Tenancy contracts define
 the provisioned application functionality as well as quality
-of service (QoS) guarantees. 
-%Thus, an extended domain feature
-%model (EFM) with attributes is convenient to express
-%this variability and a staged configuration as proposed by
-%Czarnecki et al. is applicable to create those contracts in the
-%problem space [8]. 
-Some configuration steps, e.g., performed
-by tenants, are independent from each other. However, others
+of service (QoS) guarantees. To add another layer of complexity, configuration steps, e.g., performed
+by tenants, are independent from each other while others
 are dependent, e.g., a tenant\textquotesingle s configuration choices depend
-on the pre-configuration of the provider. Therefore, a structured configuration process is needed. In addition,
-stakeholders\textquotesingle  objectives may change over time, e.g., if a tenant
-decides to change the tenancy contract. Thus, the con-
-figuration process needs to support reconfiguration of stakeholder
+on the pre-configuration of the provider. Therefore, a structured configuration process is needed. 
+
+In addition,
+stakeholders\textquotesingle   objectives may change over time, e.g., if a tenant
+decides to change the tenancy contract. Thus, the configuration process needs to 
+support reconfiguration of stakeholder
 pre-configurations and subsequent ones being further
 affected. In contrast to conventional SPL engineering, multiple
 tenancy contracts and user variants are derived, but
@@ -266,45 +255,43 @@ integrated into a single application instance in the solution
 space. Thus, in a shared cloud environment, variants are independent
 in the problem space, but become dependent in
 the solution space.
- 
- With the importance of configuration in various domain it is inevitable that configuration errors have become one of the major causes for today's system failures. For example Barroso et al. \cite{barroso2013datacenter} report that configuration errors were the second major cause of the service-level failures at one of the Google's main services. Rabkin et al. \cite{rabkin2013hadoop} report that configuration errors were the dominant cause of Hadoop cluster failures, in terms of both the number of customer cases and the supporting time. 
- %Similar statistics have been observed in other types of systems and applications like storage systems \cite{jiang2009understanding, yin2011empirical}, large-scale Internet and Web services\cite{oppenheimer2003internet}, cloud systems\cite{gunawi2014bugs} etc. 
- In recent years, we have witnessed that a number of large Internet and cloud-service providers (eg. Google, Microsoft, Amazon, LinkedIn) experienced misconfiguration-induced outages, affecting millions of their customers \cite{thomasthanks, brodkin2012,miller2012, liang2013 }.  Typically, a large, complex software system exposes hundreds of configuration parameters, and each parameter has its setting constraints (i.e., correctness rules or requirements) \cite{kiciman2004discovering, nadi2014mining}; many configuration constraints are neither intuitively designed nor well documented \cite{rabkin2011static, xu2013not}.  Moreover, many configuration parameters have correlations and dependencies with other parrameters or the system\'s runtime environment, which further increases the complexity. 
- %A recent study \cite{yin2011empirical} shows that configuration-related issues account for 27\% of all the customer-support cases in a major storage company in the U.S., and are the most significant  contributor (31\%) among all the high-severity support cases. Welsh\cite{welsh2013} ranked \"an escapse from configuration hell\" as the number one problem among all that he wished system reserachers would work on in 2013. In Google Faculty Summit 2011, Wilkes\cite{wilkes2011} named configuration as the next big challenge for the system research.
- 
 
- 
- In their recent paper, Xu et al.\ documented the  difficulties developers face
+
+ \begin{figure}[tbh]
+\centering
+\includegraphics[width=0.9\columnwidth]{Figures/knobs_paper_fig1}
+\caption{The increasing number of configuration parameters with
+software evolution. Storage-A is a commercial storage system from a
+major storage company in the U.S. (from \cite{xu2015hey})}.
+\label{fig:knobs_figure}
+\end{figure}
+
+ In recent years, we have witnessed that a number of large Internet and cloud-service providers (eg. Google, Microsoft, Amazon, LinkedIn) experienced misconfiguration-induced outages, affecting millions of their customers \cite{thomasthanks, brodkin2012,miller2012, liang2013 }\footnote{More evidences in \cite{barroso2013datacenter}, \cite{rabkin2013hadoop} }.  Typically, a large, complex software system exposes hundreds of configuration parameters, and each parameter has its setting constraints (i.e., correctness rules or requirements) \cite{kiciman2004discovering, nadi2014mining}; many configuration constraints are neither intuitively designed nor well documented \cite{rabkin2011static, xu2013not}.  Moreover, many configuration parameters have correlations and dependencies with other parameters or the system\'s runtime environment, which further increases the complexity.  In their recent paper, Xu et al.\ documented the  difficulties developers face
 with understanding  the configuration spaces of their systems~\cite{xu2015hey}. As a result, developers tend to ignore over $5/6$ths of the configuration options, which leaves considerable optimization potential untapped and induces major economic cost~\cite{xu2015hey}. Figure \ref{fig:knobs_figure} depicts how the number of configuration parameters increases
-with software evolution of one commercial storage system
-and three popular open-source server software projects. 
-%Take
-%Hadoop MapReduce as an example, its first release in Apr. 2006
-%had only 17 parameters, but the release in Oct. 2013 already had
-%173, an increase of more than nine times. In accordance with this
-%trend, the configuration space will continue to increase. The situation
-%is further worsened by the growing number of machines
-%that replicate multiple software instances in data centers, and the
-%increasing cost of human resources for managing them.
+as a project matures. 
 
 
 
+As a service provider, their customers come with different software and particular performance requirements. The general tendency of the service providers is to be conservative and over-provision the system to provide a particular performance which results to resource wastage. Though there has been numerous attempts by the system software groups around the world to come up with dynamic resource scaling \footnote{detailed survey in \cite{naskos2016cloud}}, administrators (skeptics) would still like to start the system with the optimal configurations. This means hours spend in running various benchmarks to build am accurate performance model. Various runs of the benchmarks translates into wasted time and resources and this task is expatiated if the configurations have to be optimized for multiple performance measure such as energy, infrastructure cost etc. \cite{neha2016}. Since there is no concrete mathematical model available for such problems, it renders all the numerical methods useless.
  
- Configuration options have become ubiquitious with all the software systems and with the advent of cloud computing services, performance modelling has become a very important for the service providers to guarantee SLAs while keeping the process profitable. As a service provider, the customers come to them with different software and ask for a particular performance reqriments. The general tendency of the service providers have been to be conservative and over reserve the resource to provide a particular performance which leads to resource wastage. Though there has been numerous attempts by the system software groups around the world to come up with dynamic resource scaling (for more detials look at \cite{naskos2016cloud}), the administrators would still like to start the system with the optimal configurations. This means before the system starts the service provider needs to run various bench mark runs to enable to choose the right configurations. Various runs of the benchmarks translates into wasted time and resources. The effort required for this task is exponentiated if the configurations have to be optimized for multiple performance measure such as energy, infrastructure cost etc. \cite{neha2016}. Since there is no concrete mathematical model available for such problems, it renders all the numerical methods useless. Performing a exhaustive search of the possible options is not feasible, so researchers over the years have come up with various strategies like stochastic search, evoluationary search etc. 
+\begin{myshadowbox}
+    Growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
+\end{myshadowbox}
+
+
+
+
+ \subsection*{Why is Evolutionary Algorithm?}\label{section:whyea}
+ Performing a exhaustive search of the possible options is not feasible, so researchers over the years have come up with various strategies like stochastic search, evolutionary search etc. 
  
  Stochastic and evolutionary algorithms have been primarily used for problems which are :
- \begin{itemize}
- \item{Multi-Modality: A problem is called multi-model if there are more than one optimum solutions}
- 
- \item{High Dimensionality: The number of points required for sample a search space grow exponentially\footnote{This can be illustrated on a simple example: first, place 100 points
-in a real interval [0, 1]; then to have a similar coverage in terms of distance between
-points in 10-dimensional space requires $100^{10}$ = $10^{20}$ points.}}
-
-\item{Non-Separability: A problem is called non-seperable if the optimum of one of the objectives is not the optimun for the other obejctive/s.}
-
-\item{Expensive: A problem is called expensive if the cost of evaluating a problem (or a function) is more costly with respect to any measures eg. time or money with respect to the cost of optimization.}
-
-
+     \begin{itemize}
+     \item{Multi-Modality: A problem is called multi-model if there are more than one optimum solutions}
+     \item{High Dimensionality: The number of points required for sample a search space grow exponentially\footnote{This can be illustrated on a simple example: first, place 100 points
+    in a real interval [0, 1]; then to have a similar coverage in terms of distance between
+    points in 10-dimensional space requires $100^{10}$ = $10^{20}$ points.}}
+    \item{Non-Separability: A problem is called non-separable if the optimum of one of the objectives is not the optimum for the other objective/s.}
+    \item{Expensive: A problem is called expensive if the cost of evaluating a problem (or a function) is more costly with respect to any measures eg. time or money with respect to the cost of optimization.}
  \end{itemize}
  
  In this report we would be biased towards evolutionary algorithm because if the general nature of the algorithms and effectiveness in many real world problems. \textcolor{red}{what is the difference between stochastic search and EA? Sampling is used to choose the members for the next iteration/generation where as EA operations (like NDSort, Niching) }
@@ -322,13 +309,18 @@ Finally, selection is responsible for directing the search toward more promising
 the basis of the current solutions, controlling the exploration versus exploitation trade-off.
 
 The lessons learned from multi-objective optimization are that, in order to build a
-dense Pareto front, one must mandatorily preserve the population diversity, and avoid
+dense Pareto front, one must compulsorily preserve the population diversity, and avoid
 discarding too easily the solutions which are dominated w.r.t. the current objectives.
-Despite their shortcomings, some solutions are found to pave the way toward truly nondominated
+Despite their shortcomings, some solutions are found to pave the way toward truly non-dominated
 solutions in unfrequented regions of the Pareto front. In other words, the
 celebrated Exploitation versus Exploration trade-off should be considered at the level of
 algorithm design, too.
 
+\begin{myshadowbox}
+    Growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
+\end{myshadowbox}
+
+\subsection*{How can we make EA on budget?}\label{section:frugal}
 We have seen how EAs can be very useful to solve problems with relative ease and absolutely minimum knowledge about the domain. But EAs have been plagued with the problems of slow convergence and requiring a lot of function evaluations. When function evaluations are \textquotesingle expensive\textquotesingle as explained earlier it is infeasible to run thousands of evaluations  to get the desired results. There are various ways used to solve this problem:
 \begin{itemize}
 \item{Active learning based techniques: GALE, an optimizer that identifies and evaluates just
