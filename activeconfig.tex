@@ -162,8 +162,8 @@ shadow=true
 % ISBN
 \isbn{YYY-YYYY-YY-YYY/YY/YYY}
 %Conference
-\conferenceinfo{Submitted to FSE'16}{Seattle, WA, USA. 2016}
-\acmPrice{\$ZZ.00}
+% \conferenceinfo{Submitted to FSE'16}{Seattle, WA, USA. 2016}
+% \acmPrice{\$ZZ.00}
 
  
 \begin{document}
@@ -187,7 +187,7 @@ using the WHAT spectral learner. WHAT\textquotesingle s innovation is the use of
 system, to perform dimensionality reduction. Within that reduced configuration
 space, many closely associated configurations can be studied by executing only
 a few sample configurations. For the subject systems studied here, a few
-dozen samples yield accurate and stable predictors—less than 10 \% prediction
+dozen samples yield accurate and stable predictors --- less than 10 \% prediction
 error, with a standard deviation of less than 2 \%. When compared to the state of
 the art, our approach (a) requires 2 to 10 times fewer samples to achieve similar
 error rates and (b) its predictions are more stable (i.e., have lower standard
@@ -218,7 +218,7 @@ Sampling.
  
 \section{Introduction}
 Search based software engineering involves utilizing the rich literature of search based optimization to the software engineering problems. Using SBSE, a software engineering task can be solved by finding solutions along with a fitness function associated with that problem. 
-The automatic evaluation of the solutions open up whole range of possibilities with Evolutionary algorithms (which we would talk in great depth later in the paper). In the last few years, EA has been used widely solve problems in software engineering like requirement selection~\cite{durillo2011study}  or resource allocation in project scheduling~\cite{luna2014software} to name a few. While using EA is very useful and easy, it comes with a caveat. 
+The automatic evaluation of the solutions open up whole range of possibilities with Evolutionary algorithms(EA) (which we would talk in great depth later in the paper). In the last few years, EA has been used widely solve problems in software engineering like requirement selection~\cite{durillo2011study}  or resource allocation in project scheduling~\cite{luna2014software} to name a few. While using EA is very useful and easy, it comes with a caveat. 
 We mentioned before the EA uses a fitness function and a normal run of EAs takes about tens of thousands of evaluations. If the cost/time involved in evaluating the fitness function is high, it would hinder the acceptance of EAs in the real-world. 
 In this work (and in future), we would be working predominantly on exploring way to used the search techniques to solve the hard problems with a \textquotesingle budget \textquotesingle in mind. The problem we choose to explore is the problem of choosing the optimal configurations for a software. In the following sections, we try to answer questions on why we make the following choices in our work and why we think it is important. 
 
@@ -275,7 +275,7 @@ as a project matures.
 As a service provider, their customers come with different software and particular performance requirements. The general tendency of the service providers is to be conservative and over-provision the system to provide a particular performance which results to resource wastage. Though there has been numerous attempts by the system software groups around the world to come up with dynamic resource scaling \footnote{detailed survey in \cite{naskos2016cloud}}, administrators (skeptics) would still like to start the system with the optimal configurations. This means hours spend in running various benchmarks to build am accurate performance model. Various runs of the benchmarks translates into wasted time and resources and this task is expatiated if the configurations have to be optimized for multiple performance measure such as energy, infrastructure cost etc. \cite{neha2016}. Since there is no concrete mathematical model available for such problems, it renders all the numerical methods useless.
  
 \begin{myshadowbox}
-    Growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
+    The growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
 \end{myshadowbox}
 
 
@@ -287,7 +287,7 @@ A star denotes an evolutionary operation where a surrogate can be helpful.}.
 \label{fig:ea_figure}
 \end{figure}
 
- \subsection*{Why is Evolutionary Algorithm?}\label{section:whyea}
+ \subsection*{Why use Evolutionary Algorithm?}\label{section:whyea}
  Performing a exhaustive search of the possible options is not feasible, so researchers over the years have come up with various strategies like stochastic search, evolutionary search etc. 
  
  Stochastic and evolutionary algorithms have been primarily used for problems which are :
@@ -334,7 +334,7 @@ celebrated Exploitation versus Exploration trade-off should be considered at the
 algorithm design, too.
 
 \begin{myshadowbox}
-    Since the real-world problems are difficult and don't have the properties assumed by the numerical methods, can be very difficult to solve. EA is very handy to solve these problems because it organically finds solutions to problem and does that faster than deterministic algorithms.
+    The real-world problems are very difficult to solve since they don't have the properties assumed by the numerical methods. EAs are very handy to solve these problems because it organically finds solutions to problem and does that faster than deterministic algorithms.
 \end{myshadowbox}
 
 
@@ -1284,13 +1284,18 @@ This way, we can study many closely associated configurations with only a few me
 
 We evaluated our approach on six real-world configurable software systems borrowed from the literature. Our approach achieves similar to lower error rates, while being stable when compared to the state of the art. In particular, with the exception of Berkeley DB, our approach is more accurate than the state-of-the-art approaches by Siegmund et al.~\cite{siegmund2012predicting} and Guo et al.~\cite{guo2013variability}. Furthermore, we achieve a similar prediction accuracy and stability as the approach by Sarkar et al~\cite{sarkar2015cost}, while requiring a far smaller number of configurations to be measured. We also demonstrated that our approach can be used to build cheap and stable surrogate prediction models, which can be used by off-the-shelf optimizers to find the performance-optimal configuration. 
 
-%Our specific focus here was on sampling data
-%to reason about configurable software systems. More generally,
-%this paper has demonstrated the benefit of using
-%spectral learning for SE applications.  As argued in \tion{sample},
-%we recommend spectral learning  for software analytics when there are
-%are many possible options described by sets of attributes
-%that might be noisy or redundant.  
+
+\section{Future Work}
+
+The high level idea we are running with is: "How can we introduce surrogate modelling to search based software engineering. Though the survey of the current body of work in SBSE we don't find any mention of surrogate based methods. We breakdown our research into main components 
+
+Our specific focus here was on sampling data
+to reason about configurable software systems. More generally,
+this paper has demonstrated the benefit of using
+spectral learning for SE applications.  As argued in \tion{sample},
+we recommend spectral learning  for software analytics when there are
+are many possible options described by sets of attributes
+that might be noisy or redundant.  
 
 
 
