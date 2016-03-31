@@ -279,7 +279,13 @@ As a service provider, their customers come with different software and particul
 \end{myshadowbox}
 
 
-
+ \begin{figure}[tbh]
+\centering
+\includegraphics[width=0.9\columnwidth]{Figures/EA_Diagram}
+\caption{. A diagram for an evolutionary algorithm.
+A star denotes an evolutionary operation where a surrogate can be helpful.}.
+\label{fig:ea_figure}
+\end{figure}
 
  \subsection*{Why is Evolutionary Algorithm?}\label{section:whyea}
  Performing a exhaustive search of the possible options is not feasible, so researchers over the years have come up with various strategies like stochastic search, evolutionary search etc. 
@@ -294,10 +300,18 @@ As a service provider, their customers come with different software and particul
     \item{Expensive: A problem is called expensive if the cost of evaluating a problem (or a function) is more costly with respect to any measures eg. time or money with respect to the cost of optimization.}
  \end{itemize}
  
- In this report we would be biased towards evolutionary algorithm because if the general nature of the algorithms and effectiveness in many real world problems. \textcolor{red}{what is the difference between stochastic search and EA? Sampling is used to choose the members for the next iteration/generation where as EA operations (like NDSort, Niching) }
+ In this report we would be biased towards evolutionary algorithm because if the general nature of the algorithms and effectiveness in many real world problems. Figure \ref{fig:ea_figure} describe the basic steps of an evolutionary algorithm. Evolutionary algorithm starts of with randomly generated points across the search space. The population is increased by using various \textquotesingle reproduction \textquotesingle operators like recombination (also known as crossover) and mutation. Once the mutants are generated, they are evaluated using fitness function. A selection operator is applied to the population (parent population and mutation) and the best (fittest) candidates  are selected. This process continues till a termination criteria is reached.
+ %\textcolor{red}{what is the difference between stochastic search and EA? Sampling is used to choose the members for the next iteration/generation where as EA operations (like NDSort, Niching) }
  Evolutionary Algorithms (EAs) have been thoroughly investigated in this context due
 to their ability to solve complex optimization problems by coupling problem-specific variation
 operators and selection operators:
+
+\begin{figure*}[tbh]
+\centering
+\includegraphics[width=1.3\columnwidth]{Figures/SurrogateModels}
+\caption{Flowchart of Surrogate Modelled Evolutionary Algorithm (from \cite{tabatabaei2015survey})}.
+\label{fig:surrogate_models}
+\end{figure*}
 
 Firstly, a search directed by a population of candidate solutions is quite robust with respect
 to a moderate noise and multi-modality of the objective function, in contrast to
@@ -305,6 +319,9 @@ some classical optimization methods such as quasi-Newton methods.\\
 Secondly, the role of variation operators is to explore the search space of potential solutions,
 taking into account already retrieved information about the problem. The usually randomized variation operators, together with the representation of the candidate solutions,
 encapsulate extensive prior knowledge about the problem domain.\\
+
+
+
 Finally, selection is responsible for directing the search toward more promising regions on
 the basis of the current solutions, controlling the exploration versus exploitation trade-off.
 
@@ -317,8 +334,10 @@ celebrated Exploitation versus Exploration trade-off should be considered at the
 algorithm design, too.
 
 \begin{myshadowbox}
-    Growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
+    Since the real-world problems are difficult and don't have the properties assumed by the numerical methods, can be very difficult to solve. EA is very handy to solve these problems because it organically finds solutions to problem and does that faster than deterministic algorithms.
 \end{myshadowbox}
+
+
 
 \subsection*{How can we make EA on budget?}\label{section:frugal}
 We have seen how EAs can be very useful to solve problems with relative ease and absolutely minimum knowledge about the domain. But EAs have been plagued with the problems of slow convergence and requiring a lot of function evaluations. When function evaluations are \textquotesingle expensive\textquotesingle as explained earlier it is infeasible to run thousands of evaluations  to get the desired results. There are various ways used to solve this problem:
@@ -352,16 +371,40 @@ can take weeks of execution time. Though these concerns have been raised by the 
 \item{Classic evolutionary algorithms chooses the candidates for the next generation using problem specific operators (for eg. specific crossover or mutation strategies \cite{koziolek2011peropteryx}). In this process it looses all the knowledge learnt in the process i.e. the evolutionary process is more of less memory less. But, in contrast to classical methods Surrogate assisted Evolutionary Algorithms (SAEA) has memory and can be used to learn during the process of evolution}
 \end{itemize}
 
-\begin{figure*}[tbh]
-\centering
-\includegraphics[width=1.3\columnwidth]{Figures/SurrogateModels}
-\caption{Flowchart of Surrogate Modelled Evolutionary Algorithm (from \cite{tabatabaei2015survey})}.
-\label{fig:surrogate_models}
-\end{figure*}
+
 
 
 The basic idea in a surrogate based method is to replace a computationally expensive problem with a computationally less expensive surrogate problem. The work flow of surrogate model has been be depecited in the figure~\ref{fig:surrogate_models}. 
-The first step involved initial points that are sampled, and then evaluated with the computationally expensive functions in step 2. After this, function values of the sampling points are available. In Step 3, the initial surrogate problem is constructed. In order to capture the Pareto frontier or to provide the most preferred solution based on the preference of a user (DM-Decision Maker), new samples are generated in Step 4. These points can be obtained by solveing the surrogate problem and/or sampling unexplored regions in the decision and/or objective space depending on a sampling process. In accordance with a method-dependent criterion, a subset of points among the generated points is selected. In Step 5, accessing a stop criterion may required to evaluated the selected sample points with computationally expensive functions and/or to update the surrogate problem. If a stopping criterion is met, the set of non-dominated solutions or the most preferred solution of the last surrogate problem which maybe have been evaluated with the computationally  expensive functions are considered as the approximated Pareto Frontier of the original problem or the most preferred soliton for a DM in Step 6. When the stopping criterion is not met, if the surrogate problem has already been updated, Step 4-5 are repeated. If not, first the surrogate problem is updated with the evaluated sample points and then Step4-5 are repeated.
+The first step involved initial points that are sampled, and then evaluated with the computationally expensive functions in step 2. After this, function values of the sampling points are available. In Step 3, the initial surrogate problem is constructed. In order to capture the Pareto frontier or to provide the most preferred solution based on the preference of a user (DM-Decision Maker), new samples are generated in Step 4. These points can be obtained by solveing the surrogate problem and/or sampling unexplored regions in the decision and/or objective space depending on a sampling process. In accordance with a method-dependent criterion, a subset of points among the generated points is selected. In Step 5, accessing a stop criterion may required to evaluated the selected sample points with computationally expensive functions and/or to update the surrogate problem. If a stopping criterion is met, the set of non-dominated solutions or the most preferred solution of the last surrogate problem which maybe have been evaluated with the computationally  expensive functions are considered as the approximated Pareto Frontier of the original problem or the most preferred soliton for a DM in Step 6. When the stopping criterion is not met, if the surrogate problem has already been updated, Step 4-5 are repeated. If not, first the surrogate problem is updated with the evaluated sample points and then Step4-5 are repeated. This is one variant on how to use the surrogate models. Figure \ref{fig:ea_figure} describes the steps where surrogate models can be used to solve problem (for more information refer to \cite{rasheed2000informed}).
+
+\begin{myshadowbox}
+Expensive evaluation of fitness functions limits the application of EAs wrt. to the real-world problems. Surrogate models are the cheaper, low fidelity replacement of the expensive fitness functions. The surrogate models helps us to deal with the \textquotesingle curse of dimensionality \textquotesingle and also use \textquotesingle blessing of uncertaininty \textquotesingle.
+\end{myshadowbox}
+ 
+ 
+ \subsection{Description of our problem}\label{section:problem_statement}
+ Most software systems today are configurable. Despite the undeniable benefits
+of configurability, 
+large configuration spaces challenge developers, maintainers, and users. In the face of hundreds of configuration options, it is difficult to keep track of the effects of individual configuration options and their mutual interactions. So, predicting the performance of individual system configurations or determining the optimal configuration is often more guess work than engineering. In their recent paper, Xu et al.\ documented the  difficulties developers face
+with understanding  the configuration spaces of their systems~\cite{xu2015hey}. As a result, developers tend to ignore over $5/6$ths of the configuration options, which leaves considerable optimization potential untapped and induces major economic cost~\cite{xu2015hey}.
+
+Addressing the challenge of performance prediction and optimization in the face of large configuration spaces, researchers have developed a number of approaches that rely on sampling and machine learning~\cite{siegmund2012predicting,guo2013variability,sarkar2015cost}.
+While gaining some ground, state-of-the-art approaches face two problems: 
+(a)~they require far too many sample configurations for learning or (b)~they are prone to large variances in their predictions. For example, prior work on predicting performance scores using regression-trees had to compile and execute hundreds to thousands of specific system configurations~\cite{guo2013variability}. 
+A more balanced approach by Siegmund et al.\ is able to learn predictors for  configurable systems~\cite{siegmund2012predicting} with low mean errors, but with large variances of prediction accuracy  (e.g.\ in half of the results, the performance predictions for the Apache Web server were up to 50\,\% wrong). 
+ 
+Guo et al.~\cite{guo2013variability} also proposed an incremental method to build a predictor model, which uses incremental random samples with steps equal to the number of configuration options (features) of the system. This approach also
+suffered from  unstable predictions (e.g., predictions had a mean error of up to 22\,\%, with a standard deviation of up 46\,\%). Finally, Sarkar et al.~\cite{sarkar2015cost} proposed a proj\-ective-learning approach (using fewer measurements than Guo at al.\ and Siegmund et al.) to quickly compute  the number of sample configurations for learning a stable predictor. However, as we will discuss, after making that prediction, the total number of samples required for learning the predictor is comparatively high (up to hundreds of samples).
+
+The problems of large sample sets and large variances in prediction can be avoided using the \what spectral learner, which is our main contribution.  
+{\what}'s innovation is  the use of the spectrum (eigenvalues) of the distance matrix
+between the configurations of a configurable system, to perform dimensionality reduction. Within that
+reduced configuration space, many closely associated configurations can be studied
+by measuring only a few samples.
+In a number of experiments, we compared \what against the state-of-the-art approaches of Siegmund et al.~\cite{siegmund2012predicting}, Guo et al.~\cite{guo2013variability}, and Sarkar et al. \cite{sarkar2015cost} by means of six real-world configurable systems: Berkeley DB,  the Apache Web server, SQLite, the LLVM compiler, and the x264 video encoder.
+We found that \what performs as well or better than prior approaches,
+while  requiring far fewer samples (just a few dozen).
+This is significant and most surprising, since some of the systems explored here have up to millions of possible configurations. 
  
  
  \subsection{Research Questions}
@@ -374,7 +417,7 @@ The first step involved initial points that are sampled, and then evaluated with
  Our motivation to build the model was to reduce the number of function evaluations required by the evolutionary algorithms to solve an optimization problem which is expensive. }
  \end{itemize}
  
- \subsection{Contriubtions of this thesis}
+ \subsection{Contributions of this thesis}
  We take the first step in introducing Surrogate modelling into Software Engineering literature by presenting a efficient sampling method, which can choose only the informative samples given all possible samples. Overall we make the following contributions:
  \begin{itemize}
 \item We present a novel sampling and learning approach for predicting the performance of software configurations in the face of large configuration spaces. The approach is based on a
@@ -480,119 +523,7 @@ Squares (PRESS)~\cite{kutner2004applied}, cross-validation~\cite{shan2010survey}
 
 
 
- \section{Original}
 
- 
-%==Are these comments?== 
-%Are feature/variability models too abstract for concrete reasoning?
-%Or is it possible to use these models to predict specific properties 
-%of programs generated from them? 
-
-Most software systems today are configurable. Despite the undeniable benefits
-of configurability, 
-large configuration spaces challenge developers, maintainers, and users. In the face of hundreds of configuration options, it is difficult to keep track of the effects of individual configuration options and their mutual interactions. So, predicting the performance of individual system configurations or determining the optimal configuration is often more guess work than engineering. In their recent paper, Xu et al.\ documented the  difficulties developers face
-with understanding  the configuration spaces of their systems~\cite{xu2015hey}. As a result, developers tend to ignore over $5/6$ths of the configuration options, which leaves considerable optimization potential untapped and induces major economic cost~\cite{xu2015hey}.
-
-Addressing the challenge of performance prediction and optimization in the face of large configuration spaces, researchers have developed a number of approaches that rely on sampling and machine learning~\cite{siegmund2012predicting,guo2013variability,sarkar2015cost}.
-While gaining some ground, state-of-the-art approaches face two problems: 
-(a)~they require far too many sample configurations for learning or (b)~they are prone to large variances in their predictions. For example, prior work on predicting performance scores using regression-trees had to compile and execute hundreds to thousands of specific system configurations~\cite{guo2013variability}. 
-% Other studies that tried to make far fewer execution samples resulted in predictors that were considerably inaccurate in their performance predictions.\todo[inline]{Which do you mean?}
-A more balanced approach by Siegmund et al.\ is able to learn predictors for  configurable systems~\cite{siegmund2012predicting} with low mean errors, but with large variances of prediction accuracy  (e.g.\ in half of the results, the performance predictions for the Apache Web server were up to 50\,\% wrong). 
-%My(Norbert) comment on this: you can't just take the worst heuristic here when the paper was about improving over this worst case...
- %\footnote{The predictions of \cite{siegmund2012predicting} had $\mu=19\%$ errors with $\sigma = 19.5\%$.}
-  %that half they time, they could be up to 50\% incorrect\footnote{
- %The range  $\mu \pm 1.5*\sigma$  includes the
- %25th to 75th percentile range of a normal distribution   
-%For the \cite{siegmund2012predicting} errors, that range is  0 to 49\%.}. 
-% >> Where do you have this data from? Does not match with the paper.
-% Vivek: You take the fault rate and standard deviation of the method which uses **almost** same  number of measurements. 
-Guo et al.~\cite{guo2013variability} also proposed an incremental method to build a predictor model, which uses incremental random samples with steps equal to the number of configuration options (features) of the system. This approach also
-suffered from  unstable predictions (e.g., predictions had a mean error of up to 22\,\%, with a standard deviation of up 46\,\%). Finally, Sarkar et al.~\cite{sarkar2015cost} proposed a proj\-ective-learning approach (using fewer measurements than Guo at al.\ and Siegmund et al.) to quickly compute  the number of sample configurations for learning a stable predictor. However, as we will discuss, after making that prediction, the total number of samples required for learning the predictor is comparatively high (up to hundreds of samples).
-
-The problems of large sample sets and large variances in prediction can be avoided using the \what spectral learner, which is our main contribution.  
-{\what}'s innovation is  the use of the spectrum (eigenvalues) of the distance matrix
-between the configurations of a configurable system, to perform dimensionality reduction. Within that
-reduced configuration space, many closely associated configurations can be studied
-by measuring only a few samples.
-In a number of experiments, we compared \what against the state-of-the-art approaches of Siegmund et al.~\cite{siegmund2012predicting}, Guo et al.~\cite{guo2013variability}, and Sarkar et al. \cite{sarkar2015cost} by means of six real-world configurable systems: Berkeley DB,  the Apache Web server, SQLite, the LLVM compiler, and the x264 video encoder.
-We found that \what performs as well or better than prior approaches,
-while  requiring far fewer samples (just a few dozen).
-This is significant and most surprising, since some of the systems explored here have up to millions of possible configurations. 
-
-Overall, we make the following contributions:
-\begin{itemize}
-\item We present a novel sampling and learning approach for predicting the performance of software configurations in the face of large configuration spaces. The approach is based on a
-{\em spectral
-learner} that uses an approximation to the first principal component of the configuration space to recursively cluster it, relying only on a few points as representatives of each cluster.
-\item We demonstrate the practicality and generality of our approach by conducting experiments on six real-world configurable software systems (see Figure ~\ref{fig:systems}). The results show that our approach is more accurate (lower mean error) and more stable (lower standard deviation) than state-of-the-art approaches.
-\item We report on a comparative analysis of our approach and three state-of-the-art approaches, demonstrating that our approach outperforms previous approaches in terms of sample size and prediction stability. A key finding is the utility of the principal component of a configuration space to  find informative samples from a large configuration space.
-\end{itemize}
-%More generally, this paper illustrates the value of spectral learning for software-engineering data sets. We recommend spectral learning for any analytics
-%tasks with many options described by sets of attributes
-%that might be noisy or redundant. For further details on why we make this recommendation, see Section~\ref{sect:sample}.
-
-%The rest of the paper is organized as follows. Section 2 defines the terms used in the paper. Section 3 describes the background of the problem we are trying to tackle along with the data sets used in the experiments. Section 4 further explores the research question and finds association among them. Section 5 describes the experiment setup etc. Section 6 discusses the results and Section 7 the related work. This paper concludes after mentioning the threats to validity.
- 
-\section{Background \& Related Work}  
-\label{sect:addit}
-
-A configurable software system has a set $X$ of Boolean configuration options,\footnote{In this paper, we concentrate on Boolean options, as they make up the majority of all options; see Siegmund et al., for how to incorporate numeric options~\cite{SGA+15}.} also referred to as features or independent variables in our setting.
-We denote the number of features of system $S$ as $n$. The configuration space of $S$ can be represented by a Boolean space $\mathbb{Z}_{2}^{n}$, which is denoted by $F$. All valid configurations of $S$ belong to a set $V$, which is represented by vectors $\vec{C_i}$ (with $1\leq i\leq \left\vert{V}\right\vert$) in $\mathbb{Z}_{2}^{n}$. Each element of a configuration represents a feature, which can either be \emph{True} or \emph{False}, based on whether the feature is selected or not. 
-% We denote the number of features in the system as $n$. All the features of a system can be represents a boolean/binary space (${Z}_{2}^{n}$)--- $F$, where $n$ is the number of features of the system. Every software system has a set of valid configurations ($V$) which is represented as a vector $\vec{C} \in \mathbb{Z}_{2}^{n}$, where $\mathbb{Z}_{2}^{n}$
-% % http://math.stackexchange.com/questions/892094/notation-for-show-that-a-variable-is-binary
-% is Boolean $n$-space i.e. each feature of a configurations is assigned $\mathit{True}$ and $\mathit{False}$ otherwise, based on whether the feature was selected or not.  
-Each valid instance of a vector (i.e., a configuration) has a corresponding performance score associated to it. 
-
-The literature offers two approaches to performance prediction of software configurations: a {\em maximal sampling} and a {\em minimal sampling} approach: 
-With {\em maximal sampling}, we compile all  possible configurations and record the associated performance scores. 
-Maximal sampling  can be impractically slow. For example, the performance data used in this paper required  26 days of CPU time for measuring (and much longer, if we also count the time required for compiling the code prior to execution). 
- Other researchers have commented that,  in 
- real world scenarios, the cost of acquiring the optimal configuration is overly expensive and time consuming \cite{weiss2008maximizing}.
- 
- If collecting performance scores of all configurations is impractical,  {\em minimal sampling} 
- can be used to intelligently select and execute just enough configurations (i.e., samples) to build a
- predictive model.
- For example, Zhang et al.~\cite{zhang2015performance} approximate the
-configuration space as a Fourier series, after which they can derive an expression showing how many configurations must be studied
- to build predictive models with a given error. While a theoretically satisfying result, that approach still needs thousands to hundreds of thousands of executions of sample
- configurations.  
-
-Another set of approaches are the four "additive" {\em minimal sampling} methods of Siegmund et al.~\cite{siegmund2012predicting}.
-Their first method, called feature-wise sampling ({\em FW}), is their basic method.
-To explain {\em FW}, we note that, from a configurable software system, it is theoretically possible to enumerate many or all of the valid configurations\footnote{Though, in practice, this can be very difficult. For example, in models like the Linux Kernel such an enumeration is practically impossible ~\cite{sayyad13b}.}. 
-Since each configuration ($\vec{C_i}$) is a vector of $n$ Booleans, it  is possible to use this information to isolate examples of how much each feature individually contributes to the total run time:
-\begin{enumerate}
-\item Find a pair of  configurations $\vec{C_i}$ and $\vec{C}_2$, where $\vec{C}_2$ uses exactly the same features as $\vec{C_i}$, plus one  extra feature $f_i$.
-\item Set the run time $\Pi(f_i)$ for feature $f_i$ to be the difference in the performance scores between $\vec{C_2}$ and $\vec{C_i}$.
-\item The run time  for a new configuration  $\vec{C}_i$ (with $1\leq i\leq \left\vert{V}\right\vert$) that has not been sampled before is then the sum of the run time of its features, as determined before:
-\begin{equation}
-  \Pi(C_i) = \sum_{f_j \in C_i}\Pi(f_j)  
-\end{equation}
-\end{enumerate}
-
-When many pairs, such as ${\vec{C_1},\vec{C}_2}$, satisfy the criteria of point~1, Siegmund et al.\ used the 
-pair that covers the {\em smallest} number of features. Their minimal sampling method, {\em FW},
-compiles and executes only these smallest $C_1$ and $C_2$ configurations. 
-Siegmund et al.\ also offers three extensions to the basic method, which are based on sampling
-not just the smallest $\vec{C_i}$,$\vec{C_2}$  pairs, but also any configurations with {\em interactions} between features. 
-All the following minimal sampling policies compile and   execute valid configurations selected via one of three heuristics:
-
-\begin{description}
-\item[{\em PW (pair-wise):}] For each pair of features, try to find a configuration that contains the pair and has a minimal number of features selected. 
-\item[{\em HO (higher-order):}] Select extra configurations, in which three features, $f_1,f_2,f_3$, are selected if two of the following pair-wise interactions exist: $(f_1,f_2)$ and $(f_2,f_3)$ and $(f_1,f_3)$.
-\item[{\em HS (hot-spot):}] Select extra configurations that contain features that are
-frequently interacting with other features. 
-\end{description}
-
-
-Guo et al.~\cite{guo2013variability} proposed a progressive random sampling approach, which samples in steps of the number of features of the software system in question. They used the sampled configurations to train a regression tree, which is then used to predict the performance scores of other system configurations. The termination criterion of this approach is based on a heuristic, similar to the {\em PW} heuristics of Siegmund et al. 
-
-Sarkar et al.~\cite{sarkar2015cost} proposed a cost model for predicting the effort (or cost) required to generate an accurate predictive model. The user can use this model to decide whether to go ahead and build the predictive model. This method randomly samples configurations and uses a heuristic based on feature frequencies as termination criterion. The samples are then used to train a regression tree; the accuracy of the model is measured by using a test set (where the size of the training set is equal to size of the test set). One of four projective functions (e.g., exponential) is selected based on how correlated they are to  accuracy measures. The projective function is used to approximate the accuracy-measure curve, and the elbow point of the curve is then used as the optimal sample size. Once the optimal size is known, Sarkar et al.\ uses the approach of Guo et al.\ to build the actual prediction model.  
-
-
-The advantage of these previous approaches is that, unlike  the results of Zhang et al., they require only dozens to hundreds of samples. Also, like our approach, they do not require to enumerate all configurations, which is important for highly configurable software systems. 
-That said, as shown by our experiments (see Section~\ref{sec:experiments}), these approaches produce estimates with  larger mean errors and partially larger variances than our approach. While sometimes the approach by Sarkar et al. results in  models with (slightly)
-lower mean error rates, it still requires a considerably larger number of samples (up to hundreds, while \what requires only few dozen).
  
  \section{Approach}
 
@@ -718,8 +649,7 @@ our ability to make accurate predictions.
 CART explores splits that divide $N$ samples  into two sets  $A$ and $B$, where each set  has a  standard deviation on the target variable of $\sigma_1$ and  $\sigma_2$.
 CART finds the ``best'' split defined as the split that minimizes $\frac{A}{N}\sigma_1 + \frac{B}{N}\sigma_2$.
 Using this best split, CART divides the data recursively.
- 
-\newpage
+
 In summary, \what  combines:
 \begin{compactitem}
 \item
@@ -745,7 +675,6 @@ WHERE& = &PDDP $-$ PCA $+$ FASTMAP\\[1.5ex]
 \end{center}
 This unique combination of methods has not been previously explored in the
 software-engineering literature.
-% \todo[inline]{PLEASE REMOVE-In the remaining text we dont need to mention S1:Random, as it is part of \what, be the above definition. Since we compare different sampling techniques in first research question, I think it is necessary to mention the sampling policy along with \what}
 
 \section{Experiments}
 \label{sec:experiments}
@@ -1275,8 +1204,6 @@ since \what yields predictions that are similar to or more accurate than prior
 work, while requiring fewer samples.
 \end{myshadowbox}
 
-
- \newpage
 \section{Reliability and Validity}\label{sect:construct}
 
 {\em Reliability} refers to the consistency of the results obtained
@@ -1368,7 +1295,6 @@ We evaluated our approach on six real-world configurable software systems borrow
 
 
 %\vspace*{0.5mm}
- \newpage
 \bibliographystyle{plain}
 
 \balance
