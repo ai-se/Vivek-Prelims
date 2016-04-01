@@ -308,7 +308,7 @@ operators and selection operators:
 
 \begin{figure*}[tbh]
 \centering
-\includegraphics[width=1.3\columnwidth]{Figures/SurrogateModels}
+\includegraphics[scale=0.5]{Figures/SurrogateModels}
 \caption{Flowchart of Surrogate Modelled Evolutionary Algorithm (from \cite{tabatabaei2015survey})}.
 \label{fig:surrogate_models}
 \end{figure*}
@@ -1287,15 +1287,27 @@ We evaluated our approach on six real-world configurable software systems borrow
 
 \section{Future Work}
 
-The high level idea we are running with is: "How can we introduce surrogate modelling to search based software engineering. Though the survey of the current body of work in SBSE we don't find any mention of surrogate based methods. We breakdown our research into main components 
+The high level idea we are running with is: "How can we introduce surrogate modelling to search based software engineering. Though the survey of the current body of work in SBSE we don't find any mention of surrogate based methods. We breakdown our research into main techniques: Sampling and Surrogate Modelling and we want to apply the techniques developed in two case studies: Configurations and Defect Prediction. As a first attempt to introduce surrogate models to SBSE, we have tried exploring sampling techniques on software engineering data. The following are our future plans
+\begin{itemize}
+\item
+EAs start with a random set of initial population and a good sampling algorithm can be used to get a good estimate of near optimal solution and if the problem isn't expensive this can be used to \textquotesingle SuperCharge \textquotesingle other state of the optimizers. 
+\item     
+One of the main drawbacks of the current version of WHAT is its inflexible nature. We would like to modify WHAT in such a way that (i) it take the software system (to model) as well as the budget allocated for the experiment, (ii) for the purpose to saving resource make the process progressive. We call the system pWhat-progressive WHAT.
+\item
+In the defect prediction world, tuning the defect predictors is a challenging problem, which is very similar to the problem of hyper-parameter . There has been numerous attempts to tune the defect predictors using grid search. Spectral GridSearch takes into account the principal component of the search space and make grids.
+\item
+Grid Search starts with regular grids and does not take into account how important the features are. A good sampling algorithm can be used to build a stable surrogate which can be then used to find the important feature using any feature ranking algorithm. This can be then used to create SmartGrid, which would be irregular grid and would be far more useful
+\end{itemize}
 
-Our specific focus here was on sampling data
-to reason about configurable software systems. More generally,
-this paper has demonstrated the benefit of using
-spectral learning for SE applications.  As argued in \tion{sample},
-we recommend spectral learning  for software analytics when there are
-are many possible options described by sets of attributes
-that might be noisy or redundant.  
+
+\begin{figure}[tbh]
+\centering
+\includegraphics[width=0.9\columnwidth]{Figures/FutureWork}
+\caption{Flowchart of Surrogate Modelled Evolutionary Algorithm (from \cite{tabatabaei2015survey})}.
+\label{fig:futurework}
+\end{figure}
+
+The figure \ref{fig:futurework} is visual explanation our future work. The box in the pink suggests, how we can use surrogate models on Configuration problem to optimize for multiple goals. We choose Configuration problem because of the real-world impact of the solutions we provide.
 
 
 
