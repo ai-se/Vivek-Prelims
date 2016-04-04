@@ -218,15 +218,15 @@ Sampling.
  
 \section{Introduction}
 Search based software engineering involves utilizing the rich literature of search based optimization to solve software engineering problems. Using SBSE, a software engineering task can be solved by finding solutions along with an associated fitness function. 
-The automatic evaluation of the solutions open up whole range of possibilities with Evolutionary algorithms(EA) (which we would talk in great depth later in the paper). In the last few years, EA has been used widely solve problems in software engineering like requirement selection~\cite{durillo2011study}  or resource allocation in project scheduling~\cite{luna2014software} to name a few. While using EA is very useful and easy there a caveat. 
-We mentioned before the EA uses a fitness function and a normal run of EAs takes about tens of thousands of evaluations. If the cost/time involved in evaluating the fitness function is high, it would hinder the acceptance of EAs as a defacto solution to real-world problems. 
-In this work (and in future), we would be working predominantly on exploring ways to use the search techniques to solve the hard problems with a \textquotesingle budget\textquotesingle  in mind. The problem we choose to explore is the problem of choosing the optimal configurations for a software. In the following sections, we try to answer questions on why we make the following choices in our work and why we think it is important. 
+The automatic evaluation of the solutions open up whole range of possibilities with Evolutionary algorithms(EA) (which we would talk in great depth later in the paper). In the last few years, EA has been used widely solve problems in software engineering like requirement selection~\cite{durillo2011study}  or resource allocation in project scheduling~\cite{luna2014software} to name a few. While using EA is very useful and easy there is a caveat. 
+We mentioned before the EA uses a fitness function and a normal run of an EAs takes about tens of thousands of evaluations. If the cost/time involved in evaluating the fitness function is high, it would hinder the acceptance of EAs as a defacto solution to real-world problems. 
+In this work (and in future), we work predominantly on exploring ways to use the search techniques to solve the hard problems with a \textquotesingle budget\textquotesingle  in mind. The problem we choose to explore the problem of choosing the optimal configurations for a software. In the following sections, we try to answer questions on why we make the following choices in our work and why we think it is important. 
 
 \subsection*{Why is the problem of choosing correct configurations so important?}\label{section:importance}
 In cloud computing, applications are provided on-demand
 as a self-service \cite{bennett2000service}. Commonly, a software as a service
 (SaaS) application is hosted by a provider in the cloud,
-rented to multiple customers (called tenants) and  by the tenants\textquotesingle 
+rented to multiple customers (called tenants) and  in turn by the tenants\textquotesingle 
 users over the Internet. In the provisioning
 of a SaaS application, various stakeholders with different
 objectives are involved, i.e., providers of all cloud stack layers
@@ -234,11 +234,11 @@ as well as tenants and their users [18, 26]. Thus, providing
 highly configurable SaaS applications for a large number
 of tenants and their associated users in a shared cloud environment
 demands for a dynamic, yet scalable configuration
-management to support for multiple stakeholders.  
+management to support multiple stakeholders.  
 
 Tenancy contracts define
 the provisioned application functionality as well as quality
-of service (QoS) guarantees. To add another layer of complexity, configuration steps, e.g., performed
+of service (QoS) guarantees. To add another layer of complexity, some configuration steps, e.g., performed
 by tenants, are independent from each other while others
 are dependent, e.g., a tenant\textquotesingle s configuration choices depend
 on the pre-configuration of the provider. Therefore, a structured configuration process is needed. 
@@ -247,9 +247,9 @@ In addition,
 stakeholders\textquotesingle   objectives may change over time, e.g., if a tenant
 decides to change the tenancy contract. Thus, the configuration process needs to 
 support reconfiguration of stakeholder
-pre-configurations and subsequent ones being further
+pre-configurations and subsequent ones from being further
 affected. In contrast to conventional methods, multiple
-tenancy contracts and user variants are derived, but
+tenancy contracts and user variants are derived, which are then 
 integrated into a single application instance in the solution
 space. Thus, in a shared cloud environment, variants are independent
 in the problem space, but become dependent in
@@ -271,7 +271,7 @@ as projects mature.
 
 
 
-As a service provider, their customers come with different software and specific performance requirements. The general tendency of the service providers is to be conservative and over-provision the system to provide a particular performance which results to resource wastage. Though there has been numerous attempts by the system software groups around the world to come up with dynamic resource scaling \footnote{detailed survey in \cite{naskos2016cloud}}, administrators (skeptics) would still like to start the system with the optimal configurations. This means hours spend in running various benchmarks to build an accurate performance model. Various runs of the benchmarks translates into wasted time and resources and this task is expatiated if the configurations have to be optimized for multiple performance measure such as energy, infrastructure cost etc. \cite{neha2016}. Since there is no concrete mathematical model available for such problems, it renders all the numerical methods useless.
+As a service provider, their customers come with different software and specific performance requirements. The general tendency of the service providers is to be conservative and over-provision the system to provide a particular performance which results in resource wastage. Though there has been numerous attempts by the system software groups around the world to come up with dynamic resource scaling \footnote{detailed survey in \cite{naskos2016cloud}}, administrators (skeptics) would still like to start the system with the optimal configurations. This means hours spent in running various benchmarks to build an accurate performance model. Various runs of the benchmarks translate into wasted time and resources and this task is expatiated if the configurations have to be optimized for multiple performance measure such as energy, infrastructure cost etc. \cite{neha2016}. Since there is no concrete mathematical model available for such problems, it renders all the numerical methods useless.
  
 \begin{myshadowbox}
     The growing popularity of SaaS has resulted in demand of highly configurable software. The task of selecting optimal configuration to satisfy QoS guarantees (sometimes multiple) has become more challenging. Manually setting configurations is potentially dangerous since big systems generally have large number of configurations.
@@ -291,19 +291,19 @@ A star denotes an evolutionary operation where a surrogate can be helpful.}.
  
  Stochastic and evolutionary algorithms have been primarily used for problems which are :
  \begin{compactitem}
-     \item{Multi-Modality: A problem is called multi-model if there are more than one optimum solutions}
-     \item{High Dimensionality: The number of points required for sample a search space grow exponentially\footnote{This can be illustrated on a simple example: first, place 100 points
+     \item{Multi-Modality: A problem is called multi-modal if there are more than one optimum solution}
+     \item{High Dimensionality: The number of points required for sample a search space grows exponentially\footnote{This can be illustrated on a simple example: first, place 100 points
     in a real interval [0, 1]; then to have a similar coverage in terms of distance between
     points in 10-dimensional space requires $100^{10}$ = $10^{20}$ points.}}
     \item{Non-Separability: A problem is called non-separable if the optimum of one of the objectives is not the optimum for the other objective/s.}
     \item{Expensive: A problem is called expensive if the cost of evaluating a problem (or a function) is more costly with respect to any measures eg. time or money with respect to the cost of optimization.}
   \end{compactitem}
  
- In this report we would be biased towards evolutionary algorithm because if the general nature of the algorithm and effectiveness in many real world problems. Figure \ref{fig:ea_figure} describe the basic steps of an evolutionary algorithm. Evolutionary algorithm starts of with randomly generated points across the search space called Initial Population. The population is increased by using various \textquotesingle reproduction \textquotesingle operators like recombination (also known as crossover) and mutation. Once the mutants are generated, they are evaluated using associated fitness function. A selection operator is applied to the population (parent population and mutation) and the best (fittest) candidates  are selected. This process continues till a termination criteria is reached also called stopping criteria.
+ In this report we would be biased towards evolutionary algorithm because if the general nature of the algorithm and effectiveness in many real world problems. Figure \ref{fig:ea_figure} describes the basic steps of an evolutionary algorithm. Evolutionary algorithm starts of with randomly generated points across the search space called Initial Population. The population is increased by using various \textquotesingle reproduction \textquotesingle operators like recombination (also known as crossover) and mutation. Once the mutants are generated, they are evaluated using itsassociated fitness function. A selection operator is applied to the population (parent population and mutation) and the best (fittest) candidates  are selected. This process continues till a termination criteria is reached also called stopping criteria.
  %\textcolor{red}{what is the difference between stochastic search and EA? Sampling is used to choose the members for the next iteration/generation where as EA operations (like NDSort, Niching) }
  Evolutionary Algorithms (EAs) have been thoroughly investigated in this context due
 to their ability to solve complex optimization problems by coupling problem-specific variation
-operators and selection operators:
+operators and selection operators
 
 \begin{figure*}[tbh]
 \centering
@@ -314,21 +314,22 @@ operators and selection operators:
 
 Firstly, a search directed by a population of candidate solutions is quite robust with respect
 to a moderate noise and multi-modality of the objective function, in contrast to
-some classical optimization methods such as quasi-Newton methods.\\
+some classical optimization methods such as quasi-Newton methods.
+
 Secondly, the role of variation operators is to explore the search space of potential solutions,
-taking into account already retrieved information about the problem. The usually randomized variation operators, together with the representation of the candidate solutions,
-encapsulate extensive prior knowledge about the problem domain.\\
+taking into account already retrieved information about the problem. Usually using randomized variation operators, together with the representation of the candidate solutions,
+encapsulate extensive prior knowledge about the problem domain.
 
 
 
 Finally, selection is responsible for directing the search toward more promising regions on
 the basis of the current solutions, controlling the exploration versus exploitation trade-off. The lessons learned from multi-objective optimization are that, in order to build a
-dense Pareto front, one must compulsorily preserve the population diversity, and avoid
+dense Pareto front, (i) one must compulsorily preserve the population diversity, and (ii) avoid
 discarding too easily the solutions which are dominated w.r.t. the current objectives.
 Despite their shortcomings, some solutions are found to pave the way toward truly non-dominated
 solutions in unfrequented regions of the Pareto front. In other words, the
 celebrated Exploitation versus Exploration trade-off should be considered at the level of
-algorithm design, too.
+algorithm design too.
 
 \begin{myshadowbox}
     The real-world problems are very difficult to solve since they don't have the properties assumed by the numerical methods \footnote{(i) Concave vs Conver, (ii) Differentiability, (iii) Linear vs Non Linear etc}. EAs are very handy to solve these problems because it organically finds solutions to problem and does that faster than deterministic algorithms.
@@ -336,14 +337,14 @@ algorithm design, too.
 
 
 
-\subsection*{How can we make EA on budget?}\label{section:frugal}
-We have seen how EAs can be very useful to solve problems with relative ease and bare minimum knowledge about the domain. But EAs have been plagued with the problems of slow convergence and requiring a lot of function evaluations. When function evaluations are \textquotesingle expensive\textquotesingle as explained earlier it is infeasible to run thousands of function evaluations  to get the desired results. There are various ways used to solve this problem:
+\subsection*{How can we run EA on budget?}\label{section:frugal}
+We have seen how EAs can be very useful in solving problems with relative ease and bare minimum knowledge about the domain. But EAs have been plagued with the problems of slow convergence and requiring a lot of function evaluations. When function evaluations are \textquotesingle expensive\textquotesingle as explained earlier it is infeasible to run thousands of function evaluations  to get the desired results. There are various ways used to solve this problem:
 \begin{compactitem}
 \item{Active learning based techniques: GALE, an optimizer that identifies and evaluates just
 those most informative examples. 
 GALE does not use clustering as a post-processor to some
 other optimizer. Rather, GALE replaces the need for a
-post-processor with a tool called WHERE, which explores only two evaluations per recursive split of the
+post-processor with a tool called WHERE, which performs only two evaluations per recursive split of the
 data. Hence, this algorithm performs at most $2log 2N$
 evaluations per generation, and often less.}
 \item{Surrogate based techniques: Using approximation models
@@ -514,7 +515,7 @@ learner} that uses an approximation to the first principal component of the conf
 
 
 \section{Literature Review}
-Work presented in the paper is an adaptation of the machine learning techniques along with existing works of surrogate modelling (primarily from engineering design literature) to software engineering. So we devide our literature survery into two main parts of (i) Sampling software configuration data (Software Engineering) and (ii) Surrogate Modelling. 
+Work presented in the paper is an adaptation of the machine learning techniques along with existing works of surrogate modelling (primarily from engineering design literature) to software engineering. So we divide our literature survey into two main parts of (i) Sampling software configuration data (Software Engineering) and (ii) Surrogate Modelling. 
 
 \subsection{Sampling in Software Configuration Data}
 A configurable software system has a set $X$ of Boolean configuration options,\footnote{In this paper, we concentrate on Boolean options, as they make up the majority of all options; see Siegmund et al., for how to incorporate numeric options~\cite{SGA+15}.} also referred to as features or independent variables in our setting.
@@ -581,7 +582,7 @@ lower mean error rates, it still requires a considerably larger number of sample
 We divide the background literature related to Surrogate Models into two logical sections namely (i) Components of a Surrogate Models, (ii) Classifications in Surrogate Models.
 
 \subsubsection{Componets of a Surrogate Model}
-Surrogate Models can be build primarily using a combination of two techniques: Machine Learning techniques which uses techniques like polynomial functions~\cite{madsen2000response}, Kriging models~\cite{kleijnen2009kriging}, Radial Basis Functions (RBFs)~\cite{buhmann2004radial}, Multivariate Adaptive Regression Splines (MARS)~\cite{friedman1991multivariate}, Neural Networks~\cite{hagan1996neural} and Support Vector Regression (SVR)~\cite{smola2004tutorial}. To get the learn from the given data points the learners need samples which is provided by a host of sampling algorithms. Sampling techniques primarily used in the literature are Latin Hypercube Sampling (LHS)~\cite{helton2006survey}, Central Composite Design (CCD)~\cite{jin2001comparative}, Orthogonal Array Sampling (OAS)~\cite{jin2001comparative} and Full Factorial Sampling (FFS)~\cite{jin2001comparative}. For more details refer to \cite{tabatabaei2015survey}.
+Surrogate Models can be build primarily using a combination of two techniques: Machine Learning techniques which uses techniques like polynomial functions~\cite{madsen2000response}, Kriging models~\cite{kleijnen2009kriging}, Radial Basis Functions (RBFs)~\cite{buhmann2004radial}, Multivariate Adaptive Regression Splines (MARS)~\cite{friedman1991multivariate}, Neural Networks~\cite{hagan1996neural} and Support Vector Regression (SVR)~\cite{smola2004tutorial}. To learn from the given data points the learners need samples which is provided by a host of sampling algorithms. Sampling techniques primarily used in the literature are Latin Hypercube Sampling (LHS)~\cite{helton2006survey}, Central Composite Design (CCD)~\cite{jin2001comparative}, Orthogonal Array Sampling (OAS)~\cite{jin2001comparative} and Full Factorial Sampling (FFS)~\cite{jin2001comparative}. For more details refer to \cite{tabatabaei2015survey}.
 
 \subsubsection{Classifications in Surrogate Models}
 Surrogate methods can be divided into two general frameworks based on the classiciation described in~\cite{wang2007review} and \cite{liu2008novel}. The classification is based on when the surrogate model is updated. The two main classes are 
@@ -1275,7 +1276,7 @@ We evaluated our approach on six real-world configurable software systems borrow
 \begin{figure}[tbh]
 \centering
 \includegraphics[width=0.9\columnwidth]{Figures/FutureWork}
-\caption{Flowchart of Surrogate Modelled Evolutionary Algorithm (from \cite{tabatabaei2015survey})}.
+\caption{Planned work for the rest of my Ph.D.}.
 \label{fig:futurework}
 \end{figure}
 
@@ -1284,9 +1285,9 @@ The high level idea we are running with is: "How can we introduce surrogate mode
 \item
 EAs start with a random set of initial population and a good sampling algorithm can be used to get a good estimate of near optimal solution and if the problem isn't expensive this can be used to \textquotesingle SuperCharge \textquotesingle other state of the optimizers. 
 \item     
-One of the main drawbacks of the current version of WHAT is its inflexible nature. We would like to modify WHAT in such a way that (i) it take the software system (to model) as well as the budget allocated for the experiment, (ii) for the purpose to saving resource make the process progressive. We call the system pWhat-progressive WHAT.
+One of the main drawbacks of the current version of WHAT is its inflexible nature. We would like to modify WHAT in such a way that (i) it takes the software system (to model) as well as the budget allocated for the experiment, (ii) for the purpose of saving resource make the process progressive. We call the system pWhat (progressive WHAT).
 \item
-In the defect prediction world, tuning the defect predictors is a challenging problem, which is very similar to the problem of hyper-parameter . There has been numerous attempts to tune the defect predictors using grid search. Spectral GridSearch takes into account the principal component of the search space and make grids.
+In the defect prediction world, tuning the defect predictors is a challenging problem, which is very similar to the problem of hyper-parameter optimization. There has been numerous attempts to tune the defect predictors using grid search. Spectral GridSearch takes into account the principal component of the search space and construct grids.
 \item
 Grid Search starts with regular grids and does not take into account how important the features are. A good sampling algorithm can be used to build a stable surrogate which can be then used to find the important feature using any feature ranking algorithm. This can be then used to create SmartGrid, which would be irregular grid and would be far more useful
 \end{itemize}
@@ -1294,12 +1295,10 @@ Grid Search starts with regular grids and does not take into account how importa
 
 
 
-The figure \ref{fig:futurework} is visual explanation our future work. The box in the pink suggests, how we can use surrogate models on Configuration problem to optimize for multiple goals. We choose Configuration problem because of the real-world impact of the solutions we provide.
+The figure \ref{fig:futurework} is visual explanation our future work. The box in the pink suggests how we can use surrogate models on configuration problem to optimize for multiple goals. We choose configuration problem because of the real-world impact of the solutions we provide.
 
 
-
-%\vspace*{0.5mm}
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 
 \balance
 \bibliography{activeconfig}  
