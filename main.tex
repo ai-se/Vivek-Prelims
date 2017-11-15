@@ -1,7 +1,7 @@
 \documentclass[sigconf]{acmart}
-\acmConference[ESEC/FSE 2017]{In Proceedings of 2017 11th Joint Meeting of the European Software Engineering Conference and the ACM
-  SIGSOFT Symposium on the Foundations of Software Engineering, Paderborn, Germany,
-  September 4–8, 2017 (ESEC/FSE’17)}{4--8 September, 2017}{Paderborn, Germany}
+% \acmConference[ESEC/FSE 2017]{In Proceedings of 2017 11th Joint Meeting of the European Software Engineering Conference and the ACM
+%   SIGSOFT Symposium on the Foundations of Software Engineering, Paderborn, Germany,
+%   September 4–8, 2017 (ESEC/FSE’17)}{4--8 September, 2017}{Paderborn, Germany}
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage{lipsum}
 \usetikzlibrary{shadows}
@@ -138,25 +138,25 @@ shadow=false
 %%% 'Using Bad Learners to Find Good Configurations'
 %%% by Vivek Nair, Tim Menzies, Norbert Siegmund, and Sven Apel.
 %%%
-\setcopyright{acmlicensed}
-\acmDOI{10.1145/3106237.3106238}
-\acmISBN{978-1-4503-5105-8/17/09}
-\acmConference[ESEC/FSE'17]{2017 11th Joint Meeting of the European Software Engineering Conference and the ACM SIGSOFT Symposium on the Foundations of Software Engineering}{September 4--8, 2017}{Paderborn, Germany} 
-\acmYear{2017}
-\copyrightyear{2017}
-\acmPrice{15.00}
+% \setcopyright{acmlicensed}
+% \acmDOI{10.1145/3106237.3106238}
+% \acmISBN{978-1-4503-5105-8/17/09}
+% \acmConference[ESEC/FSE'17]{2017 11th Joint Meeting of the European Software Engineering Conference and the ACM SIGSOFT Symposium on the Foundations of Software Engineering}{September 4--8, 2017}{Paderborn, Germany} 
+% \acmYear{2017}
+% \copyrightyear{2017}
+% \acmPrice{15.00}
 
 
 \begin{document}
-\copyrightyear{2017} 
-\acmYear{2017} 
-\setcopyright{acmlicensed}
-\acmConference{ESEC/FSE'17}{September 04-08, 2017}{Paderborn, Germany}\acmPrice{15.00}\acmDOI{10.1145/3106237.3106238}
-\acmISBN{978-1-4503-5105-8/17/09}
+% \copyrightyear{2017} 
+% \acmYear{2017} 
+% \setcopyright{acmlicensed}
+% \acmConference{ESEC/FSE'17}{September 04-08, 2017}{Paderborn, Germany}\acmPrice{15.00}\acmDOI{10.1145/3106237.3106238}
+% \acmISBN{978-1-4503-5105-8/17/09}
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Using Bad Learners to Find Good Configurations}
+\title{Frugal ways to find Good Configurations}
 
 
 % author names and affiliations
@@ -169,25 +169,6 @@ shadow=false
   \state{North Carolina, USA}}
 % \email{vivekaxl@gmail.com}
 
-\author{Tim Menzies}
-\affiliation{%
-  \institution{North Carolina State University}  \city{Raleigh}
-  \state{North Carolina, USA}}
-% \email{tim.menzies@gmail.com}
-
-\author{Norbert Siegmund}
-\affiliation{
-  \institution{ Bauhaus-University }
-  \city{Weimar}
-  \state{Germany}}
-% \email{norbert.siegmund@uni-weimar.de}
-
-\author{Sven Apel}
-\affiliation{%
-  \institution{University of Passau }
-  \city{Passau}
-  \state{Germany}}
-% \email{apel@uni-passau.de}
 
 
 
@@ -196,78 +177,152 @@ shadow=false
 
 \begin{abstract}
 
- Finding the optimally performing configuration of a software system for a given setting is often challenging. Recent approaches address this challenge by learning performance models based on a sample set of configurations.
- However, building an accurate performance model can be very expensive (and is often infeasible in practice). 
-The central  insight of this paper is that   
-exact performance values (e.g., the response time of a software system) are not required to rank  configurations and to identify the optimal one. 
-As shown by our experiments, performance models that are cheap to learn but inaccurate (with respect to the difference between actual and predicted performance) can still be used rank configurations and hence find the optimal configuration. This novel \emph{rank-based approach} allows us to significantly reduce the cost (in terms of number of measurements of sample configuration) as well as the time required to build performance models. We evaluate our approach with 21 scenarios based on 9 software systems and demonstrate that our approach is beneficial in 16 scenarios; for the remaining 5 scenarios, an accurate model can be built by using very few samples anyway, without the need for a rank-based approach.
+ Most software systems available today are configurable, which gives the users an
+option to customize the system to achieve different functional or non-functional
+(better performance) properties. As systems evolve, more configuration options are
+added to the software system. Studies report that developers find it difficult to
+understand the configuration spaces, which leaves considerable optimization
+potential untapped and induces major economic cost. To solve this problem of
+finding the (near) optimal configurations, engineers have proposed various
+techniques. Most popular among them are model-based techniques, where accurate
+models of the configuration space are created using as few configuration
+measurements as possible. We notice two major problems with the model-based
+techniques: 1) previous techniques are expensive to be practically viable, and 2) there are software systems whose configuration spaces cannot be accurately
+modeled. Consequently, there is a gap between proposed techniques and practical
+viability of these techniques.
+
+This dissertation will focus on proposing techniques which are easier to understand
+and is practically viable. First, we show that some lower dimensional knowledge can
+be exploited to build performance models. The second contribution is a rank-based method which shows how an accurate model is not required for performance
+optimization, but a rank-preserving model is sufficient. We evaluate rank-based method with 21 scenarios based on nine software systems and demonstrate that our
+approach is beneficial in 16 scenarios; for the remaining five scenarios, an accurate
+model can be built by using very few samples anyway, without the need for a
+rank-based approach. Additionally, in 8/21 of the scenarios, the number of
+measurements required by the rank-based method is an order of magnitude smaller
+than methods used in prior work.
+
+To further improve our second contribution, we also propose a Bayesian-based method called Flash: an alternative to model-based technique. Based on preliminary
+evidence, which can further reduce the cost of performance optimization. Finally, we
+plan to expand Flash to multi-objective software problems and discuss advantages
+and pitfalls of using a Flash over Evolutionary Algorithms. Overall, this work
+introduces cheaper (hence, frugal) and easier ways to find (near) optimal
+configurations of software systems.
 \end{abstract}
 
-\begin{CCSXML} 
-<ccs2012> 
-<concept> 
-<concept_id>10010147.10010257.10010258.10010259.10003268</concept_id> 
-<concept_desc>Computing methodologies~Ranking</concept_desc> 
-<concept_significance>500</concept_significance> 
-</concept> 
-<concept> 
-<concept_id>10010147.10010257.10010293.10003660</concept_id> 
-<concept_desc>Computing methodologies~Classification and regression trees</concept_desc> 
-<concept_significance>500</concept_significance> 
-</concept> 
-<concept> 
-<concept_id>10011007.10010940.10010971.10010980.10010984</concept_id> 
-<concept_desc>Software and its engineering~Model-driven software engineering</concept_desc> 
-<concept_significance>300</concept_significance> 
-</concept> 
-<concept> 
-<concept_id>10011007.10010940.10010971.10010980.10010985</concept_id> 
-<concept_desc>Software and its engineering~Feature interaction</concept_desc> 
-<concept_significance>100</concept_significance> 
-</concept> 
-<concept> 
-<concept_id>10011007.10010940.10011003.10011002</concept_id> 
-<concept_desc>Software and its engineering~Software performance</concept_desc> 
-<concept_significance>100</concept_significance> 
-</concept> 
-</ccs2012> 
-\end{CCSXML}
- 
-\ccsdesc[500]{Computing methodologies~Ranking}
-\ccsdesc[500]{Computing methodologies~Classification and regression trees}
-\ccsdesc[300]{Software and its engineering~Model-driven software engineering}
-\ccsdesc[100]{Software and its engineering~Feature interaction}
-\ccsdesc[100]{Software and its engineering~Software performance}
-
-% \printccsdesc
- 
- 
-
-
-\keywords{
-Performance Prediction, SBSE, Sampling, Rank-based method}
 
 \maketitle
 
 
 \section{Introduction}
-This paper proposes an improvement of recent papers presented at ICSE'12, ASE'13, and ASE'15, which predict system performance based on learning influences of individual configuration options and combinations of thereof~\cite{siegmund2012predicting,guo2013variability,sarkar2015cost}. The idea is to measure a few configurations of a configurable software system and to make statements about the performance of its other configurations. Thereby, the goal is to predict the performance of a given configuration as accurate as possible.
+Finding good configuration options for software is often challenging since the number of such options can be alarming large (hundreds of thousands of possibilities, or even more).
+Software engineers often make poor choices
+about configuration or,  worse still, they often ignore most of the configurations 
+(which means their codes take very poor advantage of their underlying systems). 
+Understanding how to configure software   is an important and difficult task:
+\bi
+\item Many systems have poorly  chosen defaults~\cite{van2017automatic,herodotou2011starfish}. Hence, it is recommended to seek better configurations.
+\item That said, there often exists an overwhelmingly large number of configuration to explore~\cite{xu2015hey}.
+\item Exploring more than just a handful of options can, sometimes, be impractically slow~\cite{zhu2017optimized}.
+\ei
+
+
+Performance optimization of configurable software systems
+is an important area of research since understanding
+the system configurations has become a major problem in
+modern software systems. There are several reasons why
+performance optimization is important:
+
+\textbf{Increasing number of configuration options}: Xu et al.~\cite{xu2015hey} documented
+the difficulties developers face in understanding the configuration spaces of their systems. As a result,
+developers tend to ignore over 83\% of configuration options,
+which leaves considerable optimization potential untapped
+and induces major economic cost. Authors also report
+that number of configuration options in many popular systems
+have increased considerably since the time their initial
+release. For example, the number of configuration options in
+Apache (a popular web server) increased from 150 to more
+than 550 configuration options within 16 years. Van Aken et
+al. ~\cite{van2017automatic}, also reports a similar trend. They report that in over
+15 years, the number of configuration options of Postgres
+and MySQL increased by 3x and 6x respectively.
+
+\textbf{Default configuration is bad}: Since software systems are
+getting complex, it is fair to assume that the software
+architects would provide default configuration or rule-of-thumb to set the configuration options. However, this has
+been found not to be true. Van Aken et al.~\cite{van2017automatic} report that
+default MySQL configurations in 2016 assume that it will be
+installed on a machine that has 160MB of RAM. Herodotou
+et al.~\cite{herodotou2011starfish} demonstrate how rule-of-thumb settings for word
+count application in Hadoop gave worse execution times.
+
+
+\textbf{Bench-marking applications are expensive}: Modern day software and the workloads can be resource intensive (CPU and time). Zuluaga et al.~\cite{zuluaga2013active} report on the cost of analysis for software/hardware co-design: “synthesis of only one design can take hours or even days.” Wang et al.~\cite{wang2013searching}
+comments on the problems of evolving a test suite for software
+if every candidate solution requires a time-consuming
+execution of the entire system: such test suite generation can
+take weeks of execution time.
+Difference between best and worst configuration: The
+difference between the best performing configuration and the worst performing configuration is significant. Hence,
+choosing the right configuration for a software system is
+essential to service quality and commercial competitiveness.
+Jamshidi et al.~\cite{jamshidi2016uncertainty} reports that while running word count
+application on Apache storm, the throughput achieved using the best configuration option is 480 times better than
+the throughput achieved by the worst configuration.
+
+With many configuration options available for modern
+software systems, it is challenging to optimize for functional
+and non-functional properties. For functional properties,
+Chen et. al~\cite{chen2016sampling} and Sayyad et. al~\cite{sayyad2013scalable} developed fast techniques
+to find near-optimal configurations by solving a five-goal optimization problem. Henard et. al~\cite{henard2015combining} used an SAT
+solver along with Multi-Objective Evolutionary Algorithms
+to repair invalid mutants found during the search process.
+For non-functional properties (which is the focus of this dissertation), researchers have proposed
+various strategies out of which building an accurate performance
+model (using machine learning techniques) received
+most attention ~\cite{guo2013variability, sarkar2015cost, siegmund2012predicting}. These methods build a highly accurate performance model of the software systems, and once a reliable performance model is built, the expensive measurements can be now replaced by measurements predicted by the model. 
+
+However, these methods were dependent on random sampling and our motivation to start this line of research was ``\textit{can we do better?}''.
+In this paper, we aim to make the process of choosing the correct configuration for a software system or \textit{performance optimization} fast while minimizing the optimization cost.  We explore three different methods~\footnote{We describe a rank-based method in details for this exam} to solve this problem namely residual-, rank-, and Bayesian-based methods. 
+
+\section{Big Picture}
+In this section, we provide an overview of our research agenda and describe the process behind the development of these methods. Each of these methods improves on the predecessor by over-coming the predecessor\textquotesingle s shortcomings. We introduce these in the order in which they were developed and conceived.
+\subsection{Residual-based methods}
+When collecting performance scores of all configurations is impractical,  {\em minimal sampling} 
+ can be used to intelligently select and execute just enough configurations (i.e., samples) to build a
+ predictive model.
+ Residual-based methods start by sequentially sampling configurations and use these (along with corresponding performance measurements such as throughput) to build machine learning models. 
+ The performance of the models was accessed using residual-based measurements such as MMRE as described in Equation~\ref{eq:err} on a subset of the configuration space, which we call as \textit{holdout set}. 
+ Once a reliable model is built, it can be then used to find the optimal configuration in the configuration space of the software system. Our first work was an extension to the then state-of-the-art residual based techniques. Residual-based techniques primarily use randomly selected samples to sequentially build the models. But, the prior methods did not reflect of the configuration space. Our proposed technique \textbf{WHAT}~\cite{nair2017faster} used of the spectrum (eigenvalues) of the distance matrix between the configurations of a software system, to perform dimensionality reduction. Within that
+reduced configuration space, many closely associated configurations can be studied by measuring only a few samples. We found that WHAT performs as well or better than prior approaches while requiring far fewer samples (just a few dozen). This is significant and most surprising since some of the systems explored here have up to millions of possible configurations. For more details about this method please refer to Nair et. al~\cite{nair2017faster}.
+
+\subsection{Rank-based method}
+However, we found that the software systems which were used to evaluate \textbf{WHAT} had binary configuration options and when used with other software systems with numerical configuration options \textbf{WHAT} did not perform well (compared to the prior approaches). We found that this is because the distance measure used by \textbf{WHAT} does not translate well to numerical settings. We also realized that using a method (like \textbf{WHAT}) which is sensitive to the distance measure used is not a good idea to pursue --- since finding a suitable distance measure becomes a question which cannot be answered without prior experience. 
+During the investigation, we realized that there is an inherent flaw in the assumption made by the prior work (including our work on \textbf{WHAT}). All the prior work assumed that an accurate performance model is required for performance optimization. Also, we came across software systems where accurate performance models cannot be built (more details in Section 3). This led us to our second work which we call the rank-based method. We show that we do not require an accurate model for performance optimization rather a rank-preserving model Using the rank-based method, we can find (near) optimal configuration using fewer measurements compared to residual-based methods. \textbf{This method would be the major focus of this document.}
+
+
+\subsection{Bayesian-based method}
+However, we noticed that both residual- and rank-based methods use a \textit{holdout set} while
+sequentially building models. The efficiency measured utilizing the holdout set is then used
+for the early termination of the model building process. All the configurations in this holdout set (a magic number set to 20\% of the configuration space) are measured or evaluated, which can be very expensive and often not considered while measuring the effort (required for performance optimization). This led us to our third part called FLASH, a Bayesian-based method, which uses an (approximate) model, built using measured configurations (or priors), to select
+the next point to evaluate or measure. FLASH builds a model which is just accurate enough to distinguish the best or close-to-the-best.  Bayesian optimization has been widely used in other fields such as hyper-parameter optimization~\cite{snoek2012practical}, cloud computing~\cite{alipourfard2017cherrypick}, etc. While an interesting technology in some test domains,
+Bayesian optimization has certain limitation. Building Gaussian
+process models can be very challenging for high dimensional
+data. So far, the state-of-the-art in this arena is
+the optimization of models with around ten decisions~\cite{wang2016bayesian}.
+In the performance optimization domain, this limitation can
+severely limit the practical applicability of the method. 
+\textbf{Regarding future work, the two directions for this research
+are 1) make FLASH scale to higher dimensions, and 2) adapt FLASH for multi-objective performance optimization. }
+
+This paper mainly focuses on the rank-based method (since WHAT was a part of the written qualifier exam). The rest of the paper is structured as follows: Section 3 motivates rank-based method. Section 4 describes the problem formulation. Section 5 describes a residual-based method in details followed by a description of the rank-based method in Section 6. In Section 7, we present our research questions along with experimental settings used to answer the research questions. In Section 8, we apply rank-based method on performance optimization problems. The paper ends with a discussion on various aspects of the rank-based method, and finally, we conclude along with future work.
+
+\section{Introduction: Rank-based method}
+This method proposes an improvement of recent papers presented at ICSE'12, ASE'13, and ASE'15, which predict system performance based on learning influences of individual configuration options and combinations of thereof~\cite{siegmund2012predicting,guo2013variability,sarkar2015cost}. The idea is to measure a few configurations of a configurable software system and to make statements about the performance of its other configurations. Thereby, the goal is to predict the performance of a given configuration as accurate as possible.
 We show that, if we (slightly) relax the
 question we ask, we can build useful predictors using very small sample sets. Specifically,
 instead of asking ``How long will this configuration run?'', we
 ask instead ``Will \underline{this} configuration run faster than \underline{that} configuration?'' or ``Which is the \underline{fastest} configuration?''. 
 
-
-This is an important area of research since understanding system configurations
-has become a major problem in modern software systems. 
-In their recent paper, Xu et al.\ documented the  difficulties developers face
-with understanding  the configuration spaces of their systems~\cite{xu2015hey}. As a result, developers tend to ignore over 83\% of configuration options, which leaves considerable optimization potential untapped and induces major economic cost~\cite{xu2015hey}.
-
-
-With many configurations available for today's software systems, it is challenging to optimize for functional and non-functional properties. For functional properties, Chen et. al~\cite{chen2016sampling} and Sayyad et. al~\cite{sayyad2013scalable} developed fast techniques to find near-optimal configurations by solving a five-goal optimization problem. Henard et. al~\cite{henard2015combining} used a SAT solver along with Multi-Objective Evolutionary Algorithms to repair invalid mutants found during the search process. 
-
-For non-functional properties, researchers have also developed a number of approaches. For example, it has been shown that the runtime of
-a configuration can be predicted with high accuracy by sampling and learning performance models~\cite{siegmund2012predicting,guo2013variability,sarkar2015cost}. 
 State-of-the-art techniques rely on configuration data from which it is possible to build very accurate models. For example, prior work~\cite{nair2017faster} has used sub-sampling to build predictors for configuration runtimes using predictors with error
 rates less than 5\% (quantified in terms of \emph{residual-based} measures such as Mean Magnitude of Relative Error, or  MMRE, $(\sum_i^n  (|a_i - p_i|/a_i))/n$ where $a_i,p_i$ are the
 {\em actual} and {\em predicted values}).
@@ -296,7 +351,7 @@ of acquiring the optimal configuration is overly expensive and time-consuming~\c
 \end{enumerate}
 
  
-The key result of this paper is that, even when {\em residual-based} performance models are
+The key result of this method is that, even when {\em residual-based} performance models are
 inaccurate, {\em ranking} performance models can still be very useful for configuration optimization. Note that:
 \begin{itemize}
 \item Predictive models return a value for a configuration;
@@ -910,10 +965,13 @@ Configurable systems are widely used in practice, but it requires careful tuning
 
 Our key findings are the following. First, a highly accurate model is not required for  configuration optimization of a software system. We demonstrated how a rank-preserving (possibly even inaccurate) model can still be useful for ranking configurations, whereas a model with accuracy as low as 26\% can be useful for configuration ranking. Second, we introduce a new rank-based approach that can be used to decide when to stop iterative sampling. We show how a rank-based approach is not trained to predict the raw performance score but rather learns the model, so that the predicted values are correlated to actual performance scores.
 
-To compare the rank-based approach to the state-of-the-art residual-based approaches (projective and progressive sampling), we conducted  a number of experiments on 9 real-world configurable systems to demonstrate the effectiveness of our approach. We observed that the rank-based approach is effective to find the optimal configurations for most subject systems while using fewer measurements than residual-based approaches. The only exceptions are subject systems for which building an accurate model is easy, anyway.
+To compare the rank-based approach to the state-of-the-art residual-based approaches (projective and progressive sampling), we conducted  a number of experiments on 9 real-world configurable systems to demonstrate the effectiveness of our approach. We observed that the rank-based approach is effective to find the optimal configurations for most subject systems while using fewer measurements than residual-based approaches. The only exceptions are subject systems for which building an accurate model is easy, anyway. 
+
+Regarding future work, the two directions for this research
+are 1) make FLASH scale to higher dimensions, and 2) adapt FLASH for multi-objective performance optimization.
  
-\section*{Acknowledgement}
-The work is partially funded by an NSF award \#1302169. Siegmund\textquotesingle s work is supported by the DFG under the contract SI 2171/2. Apel\textquotesingle s work is supported by the DFG under the contract AP 206/6 and AP 206/7.
+% \section*{Acknowledgement}
+% The work is partially funded by an NSF award \#1302169. Siegmund\textquotesingle s work is supported by the DFG under the contract SI 2171/2. Apel\textquotesingle s work is supported by the DFG under the contract AP 206/6 and AP 206/7.
 
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
